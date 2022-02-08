@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
-public class Consumer {
+public class Consumer extends Thread {
 
     public static void main(String[] args) {
         // 所有的中间件技术都是基于TCP/IP协议的 只不过rabbitmq遵循的是amqp协议
@@ -29,7 +29,7 @@ public class Consumer {
             connection = connectionFactory.newConnection("生产者");
             // 3.创建连接获取通道
             channel = connection.createChannel();
-            String queueName = "queue4";
+            String queueName = "queue1";
             channel.basicConsume(queueName, true, (s, delivery) -> System.out.println("接收到的消息是" + new String(delivery.getBody(), StandardCharsets.UTF_8)),
                     a -> System.out.println("接受消息失败了" + a));
             System.out.println("开始接受消息！！！！");
@@ -53,5 +53,6 @@ public class Consumer {
             }
         }
     }
+
 
 }

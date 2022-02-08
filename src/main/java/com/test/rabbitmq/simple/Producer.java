@@ -38,7 +38,10 @@ public class Producer {
             // 6.发送消息给队列queue
             // 交换机 路由key 消息的状态控制 消息主题
             // 交换机是必须的，如果没有初始化交换机，那么系统会给一个默认的交换机
-            channel.basicPublish("", queueName, null, message.getBytes());
+            String exchangeName = "fanout-exchange";
+            String routeKye = "";
+            String type = "funout";
+            channel.basicPublish(exchangeName, routeKye, null, message.getBytes());
             System.out.println("消息发送成功！！！！");
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
